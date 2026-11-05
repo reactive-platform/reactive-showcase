@@ -1,0 +1,4 @@
+[submodule "Reactive"]
+	path = Reactive
+	url = https://github.com/reactive-platform/reactive-mono
+	branch = v2-dev
