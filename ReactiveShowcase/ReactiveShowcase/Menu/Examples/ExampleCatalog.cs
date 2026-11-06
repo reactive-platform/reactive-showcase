@@ -45,8 +45,11 @@ internal static class ExampleCatalog {
         // Animation & time
         new AnimatedStateExample(),
         new CurvesExample(),
+        new DurationVsFactorExample(),
         new AnimationPlayerExample(),
         new AnimationTracksExample(),
+        new RepeatingExample(),
+        new DirectionExample(),
         new CustomInterpolatorExample(),
         new UpdateLoopExample(),
         new CoroutineLoadingExample(),
