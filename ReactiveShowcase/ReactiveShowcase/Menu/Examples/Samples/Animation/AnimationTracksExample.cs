@@ -27,16 +27,16 @@ internal class AnimationTracksExample : Example {
 internal class AnimationTracksDemo : ReactiveComponent {
     private static readonly Animation<IReactiveComponent> pop = new(
         AnimationTracks.Scale(0.4f, 1f) + AnimationTracks.Fade(0.3f, 1f),
-        0.45f,
+        450.ms,
         AnimationCurve.EaseOutBack
     );
 
-    private static readonly Animation<IReactiveComponent> fadeOut = new(AnimationTracks.Fade(1f, 0f), 0.3f, AnimationCurve.EaseInCubic);
-    private static readonly Animation<IReactiveComponent> fadeIn = new(AnimationTracks.Fade(0f, 1f), 0.3f, AnimationCurve.EaseOutCubic);
+    private static readonly Animation<IReactiveComponent> fadeOut = new(AnimationTracks.Fade(1f, 0f), 300.ms, AnimationCurve.EaseInCubic);
+    private static readonly Animation<IReactiveComponent> fadeIn = new(AnimationTracks.Fade(0f, 1f), 300.ms, AnimationCurve.EaseOutCubic);
 
     private static readonly Animation<IReactiveComponent> spin = new(
         AnimationTracks.Create<IReactiveComponent>((x, t) => x.ContentTransform.localEulerAngles = new(0f, 0f, t * 360f)),
-        0.7f,
+        700.ms,
         AnimationCurve.EaseInOutCubic
     );
 
@@ -45,7 +45,7 @@ internal class AnimationTracksDemo : ReactiveComponent {
             var angle = Mathf.Sin(t * Mathf.PI * 6f) * (1f - t) * 20f;
             x.ContentTransform.localEulerAngles = new(0f, 0f, angle);
         }),
-        0.6f
+        600.ms
     );
 
     private AnimationPlayer<IReactiveComponent> _player = null!;

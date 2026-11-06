@@ -31,20 +31,20 @@ internal class ModalsPage : ShowcasePage {
             ModalAnimations.JumpClose with { Track = ModalAnimations.JumpClose.Track + opaque }
         ),
         [OpenStyle.Fade] = (
-            new(AnimationTracks.Fade(0f, 1f) + unscaled, 0.25f, AnimationCurve.EaseOutCubic),
-            new(AnimationTracks.Fade(1f, 0f) + unscaled, 0.2f, AnimationCurve.EaseInCubic)
+            new(AnimationTracks.Fade(0f, 1f) + unscaled, 250.ms, AnimationCurve.EaseOutCubic),
+            new(AnimationTracks.Fade(1f, 0f) + unscaled, 200.ms, AnimationCurve.EaseInCubic)
         ),
         [OpenStyle.Zoom] = (
-            new(AnimationTracks.Fade(0f, 1f) + AnimationTracks.Scale(0.4f, 1f), 0.35f, AnimationCurve.EaseOutBack),
-            new(AnimationTracks.Fade(1f, 0f) + AnimationTracks.Scale(1f, 0.4f), 0.2f, AnimationCurve.EaseInBack)
+            new(AnimationTracks.Fade(0f, 1f) + AnimationTracks.Scale(0.4f, 1f), 350.ms, AnimationCurve.EaseOutBack),
+            new(AnimationTracks.Fade(1f, 0f) + AnimationTracks.Scale(1f, 0.4f), 200.ms, AnimationCurve.EaseInBack)
         ),
         [OpenStyle.Drop] = (
-            new(opaque + AnimationTracks.Scale(new Vector3(1f, 0f, 1f), Vector3.one), 0.4f, AnimationCurve.EaseOutBack),
-            new(AnimationTracks.Fade(1f, 0f) + AnimationTracks.Scale(Vector3.one, new Vector3(1.3f, 1.3f, 1f)), 0.2f, AnimationCurve.EaseOutCubic)
+            new(opaque + AnimationTracks.Scale(new Vector3(1f, 0f, 1f), Vector3.one), 400.ms, AnimationCurve.EaseOutBack),
+            new(AnimationTracks.Fade(1f, 0f) + AnimationTracks.Scale(Vector3.one, new Vector3(1.3f, 1.3f, 1f)), 200.ms, AnimationCurve.EaseOutCubic)
         ),
         [OpenStyle.Instant] = (
-            new(opaque + unscaled, 0f),
-            new(opaque + unscaled, 0f)
+            new(opaque + unscaled, 0.ms),
+            new(opaque + unscaled, 0.ms)
         )
     };
 
@@ -65,7 +65,7 @@ internal class ModalsPage : ShowcasePage {
     };
 
     private static Animation<IReactiveComponent> Scale(Animation<IReactiveComponent> animation, float speed) {
-        return animation with { Duration = animation.Duration / speed };
+        return animation with { Duration = (animation.Duration.Seconds / speed).sec };
     }
 
     [StateGen]
@@ -170,9 +170,9 @@ internal class ModalsPage : ShowcasePage {
                         MinValue = 0f,
                         MaxValue = 1f,
                         ValueStep = 0.05f,
-                        Value = dimDuration.Value,
+                        Value = dimDuration.Value.Seconds,
                         ValueFormatter = x => $"{x:0.00}s",
-                        OnValueChanged = x => dimDuration.Value = x
+                        OnValueChanged = x => dimDuration.Value = x.sec
                     })
                 ),
 

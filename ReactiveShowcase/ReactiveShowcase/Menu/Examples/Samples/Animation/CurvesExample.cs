@@ -37,7 +37,7 @@ internal class CurvesDemo : ReactiveComponent {
         _duration = Remember(0.8f);
         var duration = _duration;
 
-        duration.AddCallback(x => _dots.ForEach(dot => dot.Duration = x.sec));
+        duration.AddCallback(x => _dots.ForEach(dot => dot.Timing = x.sec));
 
         return new Layout {
             FlexController = {

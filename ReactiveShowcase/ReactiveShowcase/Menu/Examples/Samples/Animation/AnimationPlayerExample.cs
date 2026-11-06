@@ -25,9 +25,9 @@ internal class AnimationPlayerExample : Example {
 }
 
 internal class AnimationPlayerDemo : ReactiveComponent {
-    private static readonly Animation<IReactiveComponent> grow = new(AnimationTracks.Scale(0.3f, 1f), 1.5f, AnimationCurve.EaseOutCubic);
-    private static readonly Animation<IReactiveComponent> fadeOut = new(AnimationTracks.Fade(1f, 0f), 0.4f);
-    private static readonly Animation<IReactiveComponent> fadeIn = new(AnimationTracks.Fade(0f, 1f), 0.4f);
+    private static readonly Animation<IReactiveComponent> grow = new(AnimationTracks.Scale(0.3f, 1f), 1.5f.sec, AnimationCurve.EaseOutCubic);
+    private static readonly Animation<IReactiveComponent> fadeOut = new(AnimationTracks.Fade(1f, 0f), 400.ms);
+    private static readonly Animation<IReactiveComponent> fadeIn = new(AnimationTracks.Fade(0f, 1f), 400.ms);
 
     private AnimationPlayer<IReactiveComponent> _player = null!;
     private Background _box = null!;
