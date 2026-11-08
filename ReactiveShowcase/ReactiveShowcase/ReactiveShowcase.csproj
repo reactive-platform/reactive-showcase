@@ -81,12 +81,7 @@
       <Private>False</Private>
     </Reference>
   </ItemGroup>
-
-  <!--
-    Reactive is built from the submodule, so a clone only needs the game path. BeatSaberDir is passed down,
-    as the submodule has no user file of its own, and building it also deploys it into the game.
-    Private is off, as Reactive installs itself into Plugins and Libs instead of next to this mod.
-  -->
+  
   <PropertyGroup>
     <ReactiveDir>$(MSBuildThisFileDirectory)../../Reactive/src</ReactiveDir>
 
@@ -100,7 +95,7 @@
     <ProjectReference Include="$(ReactiveDir)/Reactive.BeatSaber/Reactive.BeatSaber.csproj" Private="false" AdditionalProperties="BeatSaberDir=$(BeatSaberDir)" />
 
     <!-- Generators and analyzers, used by the compiler rather than referenced -->
-    <ProjectReference Include="$(ReactiveDir)/Reactive.Compiler/Reactive.Compiler.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="$(ReactiveDir)/Reactive.Compiler/Reactive.Compiler.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" AdditionalProperties="BeatSaberDir=$(BeatSaberDir)" />
 
     <!-- Lets the state generator pre-generate every binding in Debug, so completion can suggest them -->
     <CompilerVisibleProperty Include="Configuration" />
@@ -125,5 +120,13 @@
     <!-- Example sources are compiled and also embedded, so the playground can show them in game -->
     <EmbeddedResource Include="Menu/Examples/Samples/**/*.cs" LogicalName="Examples/%(Filename)%(Extension)" />
   </ItemGroup>
+
+  <!--
+    Reactive's projects are in the solution so IDEs restore them, but they don't build there, as they wouldn't get the
+    game path. IDEs don't build references either, so they're built from here instead, with the properties above.
+  -->
+  <Target Name="BuildReactive" BeforeTargets="ResolveProjectReferences" Condition="'$(BuildProjectReferences)' == 'false'">
+    <MSBuild Projects="@(ProjectReference)" Targets="Build" Properties="Configuration=$(Configuration);Platform=$(Platform);BuildProjectReferences=true" BuildInParallel="true" />
+  </Target>
   
 </Project>
